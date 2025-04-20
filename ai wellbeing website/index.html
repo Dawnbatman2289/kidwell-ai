@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KidWell AI - Your Personal Well-being Assistant</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="styles/style.css" rel="stylesheet">
+    <link href="additional-styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="datetime-banner">
+        Current Date and Time (UTC): <span id="current-time">2025-04-20 10:08:27</span>
+    </div>
+
+    <header class="header">
+        <div class="user-profile">
+            <div class="avatar">
+                <span>D</span>
+            </div>
+            <div class="user-info">
+                <div class="username">Welcome, <span id="username">Dawnbatman2289</span>!</div>
+                <div class="last-login">Last login: 2025-04-20 09:42:36 UTC</div>
+            </div>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="#dashboard" class="active" onclick="navigate('dashboard')">
+                    <i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="#activities" onclick="navigate('activities')">
+                    <i class="fas fa-running"></i> Activities</a></li>
+                <li><a href="#exercises" onclick="navigate('exercises')">
+                    <i class="fas fa-brain"></i> Exercises</a></li>
+                <li><a href="#achievements" onclick="navigate('achievements')">
+                    <i class="fas fa-trophy"></i> Achievements</a></li>
+                <li><a href="#settings" onclick="navigate('settings')">
+                    <i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#ai-assistant" onclick="openAIModal()">
+                    <i class="fas fa-robot"></i> AI Assistant</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section id="dashboard" class="dashboard">
+            <!-- Screen Time Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-desktop"></i> Screen Time</h2>
+                </div>
+                <div class="card-content">
+                    <div class="timer" id="screen-timer">00:00:00</div>
+                    <div class="progress-bar">
+                        <div class="progress" id="screen-progress" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-label">
+                        <span>Daily Usage</span>
+                        <span id="screen-time-percentage">0/120 min</span>
+                    </div>
+                    <button class="btn primary" onclick="toggleScreenTimeTracking()" id="screen-time-btn">
+                        <i class="fas fa-play"></i> Start Tracking
+                    </button>
+                </div>
+            </div>
+
+            <!-- Physical Activity Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-running"></i> Physical Activity</h2>
+                </div>
+                <div class="card-content">
+                    <div class="progress-bar">
+                        <div class="progress" id="activity-progress" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-label">
+                        <span>Daily Goal Progress</span>
+                        <span id="activity-percentage">0/60 min</span>
+                    </div>
+                    <button class="btn primary" onclick="showActivityModal()">
+                        <i class="fas fa-plus"></i> Log Activity
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cognitive Exercises Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-brain"></i> Cognitive Exercises</h2>
+                </div>
+                <div class="card-content">
+                    <div class="progress-bar">
+                        <div class="progress" id="cognitive-progress" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-label">
+                        <span>Daily Exercises</span>
+                        <span id="exercise-count">0/4 completed</span>
+                    </div>
+                    <button class="btn primary" onclick="showExerciseModal()">
+                        <i class="fas fa-play"></i> Start Exercise
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="activities" class="section" style="display: none;">
+            <h2><i class="fas fa-running"></i> Physical Activities</h2>
+            <div class="activity-history">
+                <h3>Recent Activities</h3>
+                <div id="activity-list"></div>
+            </div>
+            <button class="btn primary" onclick="showActivityModal()">
+                <i class="fas fa-plus"></i> Log New Activity
+            </button>
+        </section>
+
+        <section id="exercises" class="section" style="display: none;">
+            <h2><i class="fas fa-brain"></i> Cognitive Exercises</h2>
+            <div class="exercise-grid">
+                <div class="exercise-card" onclick="startExercise('memory')">
+                    <i class="fas fa-clone"></i>
+                    <h3>Memory Match</h3>
+                    <p>Test your memory with card matching</p>
+                </div>
+                <div class="exercise-card" onclick="startExercise('math')">
+                    <i class="fas fa-calculator"></i>
+                    <h3>Math Challenge</h3>
+                    <p>Solve math problems</p>
+                </div>
+                <div class="exercise-card" onclick="startExercise('puzzle')">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <h3>Pattern Puzzle</h3>
+                    <p>Complete the pattern sequence</p>
+                </div>
+                <div class="exercise-card" onclick="startExercise('word')">
+                    <i class="fas fa-font"></i>
+                    <h3>Word Scramble</h3>
+                    <p>Unscramble the letters</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="achievements" class="section" style="display: none;">
+            <h2><i class="fas fa-trophy"></i> Achievements</h2>
+            <div id="achievements-container" class="achievements-grid"></div>
+        </section>
+
+        <section id="settings" class="section" style="display: none;">
+            <h2><i class="fas fa-cog"></i> Settings</h2>
+            <div class="settings-panel">
+                <div class="form-group">
+                    <label for="screen-time-limit">Daily Screen Time Limit (minutes):</label>
+                    <input type="number" id="screen-time-limit" value="120" min="30" max="480">
+                </div>
+                <div class="form-group">
+                    <label for="activity-goal">Daily Activity Goal (minutes):</label>
+                    <input type="number" id="activity-goal" value="60" min="15" max="240">
+                </div>
+                <div class="form-group">
+                    <label for="exercise-goal">Daily Exercise Goal:</label>
+                    <input type="number" id="exercise-goal" value="4" min="1" max="10">
+                </div>
+                <div class="form-group">
+                    <label for="theme-select">Theme:</label>
+                    <select id="theme-select">
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                        <option value="colorful">Colorful</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Notifications:</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" id="screen-time-alerts" checked> Screen time alerts</label>
+                        <label><input type="checkbox" id="activity-reminders" checked> Activity reminders</label>
+                        <label><input type="checkbox" id="exercise-reminders" checked> Exercise reminders</label>
+                        <label><input type="checkbox" id="achievement-alerts" checked> Achievement alerts</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="notification-sound">Notification Sound:</label>
+                    <select id="notification-sound">
+                        <option value="chime">Chime</option>
+                        <option value="bell">Bell</option>
+                        <option value="none">None</option>
+                    </select>
+                </div>
+                <button class="btn primary" onclick="saveSettings()">
+                    <i class="fas fa-save"></i> Save Settings
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div id="activity-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('activity-modal')">&times;</span>
+            <h2>Log Physical Activity</h2>
+            <form id="activity-form" onsubmit="logActivity(event)">
+                <div class="form-group">
+                    <label for="activity-type">Activity Type:</label>
+                    <select id="activity-type" required>
+                        <option value="">Select an activity...</option>
+                        <option value="running">Running</option>
+                        <option value="walking">Walking</option>
+                        <option value="swimming">Swimming</option>
+                        <option value="cycling">Cycling</option>
+                        <option value="dancing">Dancing</option>
+                        <option value="playing">Playing Sports</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="activity-duration">Duration (minutes):</label>
+                    <input type="number" id="activity-duration" min="5" max="180" value="30" required>
+                </div>
+                <button type="submit" class="btn primary">Log Activity</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="exercise-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('exercise-modal')">&times;</span>
+            <h2>Cognitive Exercise</h2>
+            <div id="exercise-content"></div>
+        </div>
+    </div>
+
+    <!-- New AI Assistant Modal -->
+    <div id="ai-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('ai-modal')">&times;</span>
+            <h2>AI Assistant</h2>
+            <textarea id="ai-input" placeholder="Ask your well-being question..."></textarea>
+            <button class="btn primary" onclick="askAI()">Ask AI</button>
+            <button class="btn" onclick="clearAIChat()">Clear Chat</button>
+            <div id="ai-response"></div>
+        </div>
+    </div>
+
+    <div id="notification-container"></div>
+    
+    <script>
+        // Request notification permission on page load
+        if ("Notification" in window) {
+            Notification.requestPermission();
+        }
+    </script>
+    <script src="js/achievements.js"></script>
+    <script src="js/exercises.js"></script>
+    <script src="js/functions.js"></script>
+    <script>
+        window.onload = function() {
+            console.log("Page loaded. All scripts should be functioning.");
+            if (typeof navigate !== 'function') console.error("Missing function: navigate");
+            if (typeof toggleScreenTimeTracking !== 'function') console.error("Missing function: toggleScreenTimeTracking");
+            if (typeof closeModal !== 'function') console.error("Missing function: closeModal");
+            if (typeof logActivity !== 'function') console.error("Missing function: logActivity");
+            if (typeof showActivityModal !== 'function') console.error("Missing function: showActivityModal");
+            if (typeof showExerciseModal !== 'function') console.error("Missing function: showExerciseModal");
+            if (typeof openAIModal !== 'function') console.error("Missing function: openAIModal");
+            if (typeof askAI !== 'function') console.error("Missing function: askAI");
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+/* Exercise container styles */
+.exercise-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: var(--background-color);
+    border-radius: 10px;
+}
+
+.exercise-info {
+    display: flex;
+    gap: 1rem;
+}
+
+.exercise-info span {
+    padding: 0.5rem 1rem;
+    background-color: var(--accent-color);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.exercise-content {
+    padding: 2rem;
+    position: relative;
+}
+
+/* Memory game styles */
+.memory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+}
+
+/* Math challenge styles */
+.math-challenge {
+    text-align: center;
+}
+
+.math-challenge .problem {
+    font-size: 2rem;
+    margin: 1rem 0;
+}
+
+/* Sequence challenge styles */
+.sequence-challenge {
+    text-align: center;
+}
+
+.sequence {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    letter-spacing: 5px;
+}
+
+/* Word scramble styles */
+.word-scramble {
+    text-align: center;
+}
+
+.scrambled-word {
+    font-size: 2rem;
+    margin: 1rem 0;
+    letter-spacing: 10px;
+}
+
+/* Pattern puzzle styles */
+.pattern-puzzle {
+    text-align: center;
+}
+
+.pattern {
+    font-size: 2rem;
+    margin: 1rem 0;
+}
+
+.pattern-options {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+/* Feedback styles */
+.exercise-feedback {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    text-align: center;
+    animation: feedback-popup 0.3s ease-out;
+}
+
+.exercise-feedback.success {
+    border: 3px solid var(--success-color);
+}
+
+.exercise-feedback.error {
+    border: 3px solid var(--danger-color);
+}
+
+.feedback-content i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.success .feedback-content i {
+    color: var(--success-color);
+}
+
+.error .feedback-content i {
+    color: var(--danger-color);
+}
+
+/* Level up message */
+.level-up-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    text-align: center;
+    animation: level-up-popup 0.5s ease-out;
+    z-index: 2000;
+}
+
+.level-up-content i {
+    font-size: 4rem;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+/* Animations */
+@keyframes feedback-popup {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes level-up-popup {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -60%) scale(0.8);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}

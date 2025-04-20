@@ -1,0 +1,97 @@
+/* Memory Game */
+.memory-game {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.memory-card {
+    aspect-ratio: 1;
+    background: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.memory-card.flipped {
+    background: white;
+    transform: rotateY(180deg);
+}
+
+/* Math Challenge */
+.math-challenge {
+    text-align: center;
+    padding: 20px;
+}
+
+.math-challenge input {
+    font-size: 1.5rem;
+    width: 100px;
+    text-align: center;
+    margin: 10px;
+    padding: 5px;
+}
+
+/* Pattern Puzzle */
+.pattern-puzzle {
+    text-align: center;
+    padding: 20px;
+}
+
+.pattern {
+    font-size: 2rem;
+    margin: 20px 0;
+}
+
+.options {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* Word Scramble */
+.word-scramble {
+    text-align: center;
+    padding: 20px;
+}
+
+.scrambled {
+    font-size: 2rem;
+    margin: 20px 0;
+    letter-spacing: 5px;
+}
+
+.word-scramble input {
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 10px;
+    padding: 5px;
+    text-transform: uppercase;
+}
+
+/* Achievement badges */
+.achievement-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background: white;
+    padding: 1rem;
+    border-radius: 10px;
+    margin: 0.5rem;
+    opacity: 0.6;
+    transition: all 0.3s;
+}
+
+.achievement-badge.earned {
+    opacity: 1;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.badge-icon {
+    font-size: 2rem;
+    color: var(--secondary-color);
+}
